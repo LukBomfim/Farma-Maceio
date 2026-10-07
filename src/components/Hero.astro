@@ -1,0 +1,33 @@
+---
+import { site, waLink } from '../config/site';
+---
+
+<section class="bg-gradient-to-b from-white to-pharmacy-light">
+  <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-24">
+    <h1 class="text-3xl font-extrabold tracking-tight text-pharmacy-dark sm:text-5xl">
+      Receba seus medicamentos em casa com rapidez.
+    </h1>
+
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-700">
+      Faça seu pedido pelo WhatsApp e tenha entrega grátis no {site.addressDetails.neighborhood}.
+    </p>
+
+    <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+      <a
+        href={waLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="w-full rounded-lg bg-pharmacy-red px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-pharmacy-red-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharmacy-blue sm:w-auto"
+      >
+        Fazer Pedido pelo WhatsApp
+      </a>
+
+      <a
+        href="#servicos"
+        class="w-full rounded-lg bg-pharmacy-blue px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-pharmacy-blue-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharmacy-red sm:w-auto"
+      >
+        Nossos Serviços
+      </a>
+    </div>
+  </div>
+</section>

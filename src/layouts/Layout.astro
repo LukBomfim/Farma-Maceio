@@ -1,0 +1,77 @@
+---
+import '../styles/global.css';
+import { site } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = `${site.name}`,
+  description = `Farmácia no ${site.addressDetails.neighborhood}, Maceió - AL. Faça seu pedido pelo WhatsApp, com entrega grátis no ${site.addressDetails.neighborhood}, teste de glicemia e aferição de pressão.`,
+  image = '/og-image.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Pharmacy',
+  name: site.name,
+  url: Astro.site?.href,
+  image: new URL('/logo.png', Astro.site).href,
+  telephone: [`+${site.landline}`, `+${site.whatsapp}`],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.addressDetails.street,
+    addressLocality: site.addressDetails.city,
+    addressRegion: site.addressDetails.state,
+    postalCode: site.addressDetails.postalCode,
+    addressCountry: 'BR',
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      opens: '07:00',
+      closes: '21:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: 'Sunday',
+      opens: '07:00',
+      closes: '13:00',
+    },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="theme-color" content="#0a4a9a" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body class="bg-pharmacy-light text-pharmacy-dark antialiased">
+    <slot />
+  </body>
+</html>

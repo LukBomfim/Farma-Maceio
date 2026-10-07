@@ -1,0 +1,131 @@
+---
+// src/pages/politica-de-privacidade.astro
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../config/site';
+
+const updatedAt = '06/10/2026'; // SUBSTITUIR pela data de publicação
+const retention = '2 anos';    // SUBSTITUIR pelo prazo definido com o farmacêutico responsável
+---
+
+<Layout
+  title={`Política de Privacidade | ${site.name}`}
+  description={`Saiba como a ${site.name} trata seus dados pessoais e de saúde ao atender pedidos e receitas pelo WhatsApp.`}
+>
+  <Header />
+
+  <main class="bg-white">
+    <div class="mx-auto max-w-3xl px-4 py-12 sm:py-16">
+      <h1 class="text-3xl font-bold text-pharmacy-blue">Política de Privacidade</h1>
+      <p class="mt-2 text-sm text-slate-600">Última atualização: {updatedAt}</p>
+
+      <div class="mt-8 space-y-8 text-slate-700">
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">1. Quem somos</h2>
+          <p class="mt-2">
+            Esta política explica como a {site.legal.companyName} ({site.name}), CNPJ
+            {site.legal.cnpj}, com sede em {site.address}, trata dados pessoais em conformidade
+            com a Lei Geral de Proteção de Dados (Lei nº 13.709/2018, LGPD). Somos a
+            controladora dos dados tratados em nosso atendimento.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">2. Quais dados coletamos</h2>
+          <p class="mt-2">
+            Este site não tem formulários, login nem cadastro. Os dados chegam até nós quando
+            você nos contata pelo WhatsApp, e podem incluir:
+          </p>
+          <ul class="mt-2 list-disc space-y-1 pl-6">
+            <li>nome e número de telefone;</li>
+            <li>endereço de entrega, quando você pede entrega;</li>
+            <li>foto da receita médica e informações sobre os medicamentos solicitados.</li>
+          </ul>
+          <p class="mt-2">
+            Receitas e informações sobre medicamentos são <strong>dados de saúde</strong>, que a LGPD
+            classifica como dados pessoais sensíveis e protege com mais rigor.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">3. Para que usamos seus dados</h2>
+          <ul class="mt-2 list-disc space-y-1 pl-6">
+            <li>atender seu pedido, conferir a receita e separar os produtos;</li>
+            <li>organizar a entrega no endereço informado;</li>
+            <li>cumprir obrigações legais e regulatórias da atividade farmacêutica.</li>
+          </ul>
+          <p class="mt-2">
+            Não usamos seus dados para vender a terceiros nem para publicidade.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">4. Base legal</h2>
+          <p class="mt-2">
+            Tratamos seus dados para executar o atendimento que você solicitou, para cumprir
+            obrigações legais ou regulatórias e, no caso dos dados de saúde, para a tutela da
+            saúde em procedimento realizado por profissional de saúde ou serviço de saúde,
+            nos termos da LGPD.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">5. Com quem compartilhamos</h2>
+          <p class="mt-2">
+            O acesso às conversas é restrito à equipe da farmácia envolvida no atendimento. Seus
+            dados podem ser compartilhados apenas com autoridades, quando houver obrigação legal,
+            e com prestadores estritamente necessários à operação, como o próprio WhatsApp,
+            que tem sua política própria de privacidade.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">6. Por quanto tempo guardamos</h2>
+          <p class="mt-2">
+            Mantemos as imagens de receitas e os dados do atendimento pelo prazo de {retention},
+            ou pelo tempo exigido pela legislação sanitária, o que for maior. Depois disso,
+            são apagados ou anonimizados.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">7. Seus direitos</h2>
+          <p class="mt-2">Você pode solicitar, a qualquer momento:</p>
+          <ul class="mt-2 list-disc space-y-1 pl-6">
+            <li>confirmação de que tratamos seus dados e acesso a eles;</li>
+            <li>correção de dados incompletos ou desatualizados;</li>
+            <li>eliminação de dados, quando não houver obrigação legal de guardá-los;</li>
+            <li>informações sobre com quem compartilhamos seus dados;</li>
+            <li>revogação de consentimento, quando ele for a base do tratamento.</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">8. Cookies e métricas</h2>
+          <p class="mt-2">
+            Este site não usa cookies de rastreamento nem ferramentas de análise. Se isso mudar,
+            esta política será atualizada.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">9. Como falar conosco</h2>
+          <p class="mt-2">
+            Para exercer seus direitos ou tirar dúvidas sobre esta política, fale com a gente
+            pelo WhatsApp {site.phoneDisplay} ou pelo telefone {site.landlineDisplay}.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-semibold text-pharmacy-dark">10. Alterações</h2>
+          <p class="mt-2">
+            Podemos atualizar esta política. A data da última revisão fica sempre no topo da página.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <Footer />
+</Layout>

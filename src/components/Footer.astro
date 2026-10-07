@@ -1,0 +1,52 @@
+---
+import { site, telLink, waLink } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-pharmacy-dark text-slate-300">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid gap-8 md:grid-cols-3">
+      <div>
+        <p class="text-lg font-bold text-white">{site.name}</p>
+        <p class="mt-2 text-sm">{site.legal.companyName}</p>
+        <p class="text-sm">CNPJ: {site.legal.cnpj}</p>
+      </div>
+
+      <div>
+        <p class="font-semibold text-white">Contato</p>
+        <address class="mt-2 text-sm not-italic">
+          {site.addressDetails.street}<br />
+          {site.addressDetails.neighborhood}, {site.addressDetails.city} - {site.addressDetails.state}<br />
+          CEP {site.addressDetails.postalCode}
+        </address>
+        <p class="mt-2 text-sm">
+          Tel.: <a href={telLink} class="underline hover:text-white">{site.landlineDisplay}</a><br />
+          WhatsApp:
+          <a href={waLink} target="_blank" rel="noopener noreferrer" class="underline hover:text-white">
+            {site.phoneDisplay}
+          </a>
+        </p>
+      </div>
+
+      <div>
+        <p class="font-semibold text-white">Funcionamento</p>
+        <ul class="mt-2 space-y-1 text-sm">
+          {site.hours.map((h) => <li>{h.label}: {h.value}</li>)}
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-8 border-t border-slate-700 pt-6 text-sm">
+      <p>Autorização de Funcionamento (AFE/ANVISA): {site.legal.afe}</p>
+      <p class="mt-3">
+        <a href="/politica-de-privacidade" class="underline hover:text-white">
+          Política de Privacidade
+        </a>
+      </p>
+      <p class="mt-3 text-slate-400">
+        &copy; {year} {site.name}. Todos os direitos reservados.
+      </p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pharmacy-red: #ce0e10;
+  --color-pharmacy-red-hover: #a60b0d;
+  --color-pharmacy-blue: #0a4a9a;
+  --color-pharmacy-blue-hover: #083b7b;
+  --color-pharmacy-dark: #0f172a;
+  --color-pharmacy-light: #f8fafc;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
