@@ -53,10 +53,6 @@ npm run dev
 
 O site abre em `http://localhost:4321`.
 
-## Documentação
-
-A especificação do projeto está no PDF *Documentação – Farma Maceió (Site Institucional)*, na raiz deste repositório.
-
 ---
 
 © Farma Maceió. Todos os direitos reservados.
