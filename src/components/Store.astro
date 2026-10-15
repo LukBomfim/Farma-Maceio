@@ -1,0 +1,154 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../config/site';
+
+// Fotos da loja: coloque QUANTAS quiser em src/assets/loja/
+// (.jpg, .jpeg, .png ou .webp). Nenhum código precisa ser alterado.
+//
+// Ordem: "fachada" sempre primeiro; as demais seguem a ordem alfabética
+// do nome do arquivo. Para controlar a ordem, numere:
+//   01-balcao.jpg, 02-prateleiras.jpg, 03-medicamentos.jpg ...
+//
+// Legendas (opcional): chave = nome do arquivo sem extensão.
+const captions: Record<string, string> = {
+  
+};
+
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/loja/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+
+const photos = Object.entries(files)
+  .map(([path, mod]) => {
+    const name = path.split('/').pop()!.replace(/\.[^.]+$/, '');
+    return { name, src: mod.default };
+  })
+  .sort((a, b) => {
+    if (a.name === 'fachada') return -1;
+    if (b.name === 'fachada') return 1;
+    return a.name.localeCompare(b.name, 'pt-BR', { numeric: true });
+  })
+  .map((p, i) => ({
+    ...p,
+    caption: captions[p.name],
+    alt: captions[p.name]
+      ? `${captions[p.name]} - ${site.name}`
+      : `Foto ${i + 1} da ${site.name}`,
+  }));
+
+const hasMany = photos.length > 1;
+---
+
+{
+  photos.length > 0 && (
+    <section id="loja" class="scroll-mt-20 bg-pharmacy-blue">
+      <div class="mx-auto max-w-6xl px-4 py-16 sm:py-20">
+        <h2 class="text-center text-2xl font-bold text-white sm:text-3xl">
+          Conheça Nossa Loja
+        </h2>
+        <p class="mx-auto mt-3 max-w-2xl text-center text-blue-50">
+          Venha nos visitar. Estamos prontos para te atender.
+        </p>
+
+        <div
+          data-carousel
+          class="relative mt-10"
+          role="region"
+          aria-roledescription="carrossel"
+          aria-label={`Fotos da ${site.name}`}
+        >
+          <ul
+            data-track
+            tabindex="0"
+            class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white [&::-webkit-scrollbar]:hidden"
+          >
+            {photos.map((photo, i) => (
+              <li
+                class:list={[
+                  'shrink-0 snap-center',
+                  hasMany ? 'basis-[85%] sm:basis-[60%] lg:basis-[45%]' : 'basis-full',
+                ]}
+                aria-label={`Foto ${i + 1} de ${photos.length}`}
+              >
+                <figure class="relative overflow-hidden rounded-xl bg-pharmacy-blue-hover shadow-lg ring-1 ring-white/20">
+                  <Image
+                    src={photo.src}
+                    alt={photo.alt}
+                    widths={[480, 800, 1200]}
+                    sizes="(min-width: 1024px) 480px, (min-width: 640px) 60vw, 85vw"
+                    quality={75}
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    class="aspect-[4/3] w-full object-cover"
+                  />
+                  {photo.caption && (
+                    <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-3 pt-10 text-sm font-semibold text-white">
+                      {photo.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              </li>
+            ))}
+          </ul>
+
+          {hasMany && (
+            <>
+              <button
+                type="button"
+                data-prev
+                aria-label="Foto anterior"
+                class="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-pharmacy-blue shadow-lg transition-colors hover:bg-pharmacy-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharmacy-red disabled:opacity-40 md:flex"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m15 18-6-6 6-6" />
+                </svg>
+              </button>
+              <button
+                type="button"
+                data-next
+                aria-label="Próxima foto"
+                class="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white text-pharmacy-blue shadow-lg transition-colors hover:bg-pharmacy-light focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharmacy-red disabled:opacity-40 md:flex"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6" />
+                </svg>
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<script>
+  // Setas do carrossel (o deslize no celular e as setas do teclado funcionam sem JS).
+  document.querySelectorAll<HTMLElement>('[data-carousel]').forEach((root) => {
+    const track = root.querySelector<HTMLElement>('[data-track]');
+    const prev = root.querySelector<HTMLButtonElement>('[data-prev]');
+    const next = root.querySelector<HTMLButtonElement>('[data-next]');
+    if (!track || !prev || !next) return;
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    const step = () => {
+      const item = track.querySelector<HTMLElement>('li');
+      return item ? item.offsetWidth + 16 : track.clientWidth;
+    };
+
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth - 1;
+      prev.disabled = track.scrollLeft <= 1;
+      next.disabled = track.scrollLeft >= max;
+    };
+
+    const go = (dir: number) =>
+      track.scrollBy({ left: dir * step(), behavior: reduce.matches ? 'auto' : 'smooth' });
+
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+</script>

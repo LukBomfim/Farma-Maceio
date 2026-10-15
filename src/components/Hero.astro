@@ -1,14 +1,52 @@
 ---
+import { Image } from 'astro:assets';
 import { site, waLink } from '../config/site';
+
+// Foto da fachada: coloque o arquivo em src/assets/loja/ com o nome
+// "fachada" (.jpg, .jpeg, .png ou .webp). Se não existir, o Hero
+// usa apenas o fundo azul da marca.
+const fachadaFiles = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/loja/fachada.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const fachada = Object.values(fachadaFiles)[0]?.default;
 ---
 
-<section class="bg-gradient-to-b from-white to-pharmacy-light">
-  <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:py-24">
-    <h1 class="text-3xl font-extrabold tracking-tight text-pharmacy-dark sm:text-5xl">
+<section class="relative isolate overflow-hidden bg-gradient-to-b from-pharmacy-blue to-pharmacy-blue-hover">
+  {
+    fachada && (
+      <>
+        <Image
+          src={fachada}
+          alt=""
+          aria-hidden="true"
+          widths={[640, 1024, 1600]}
+          sizes="100vw"
+          quality={70}
+          loading="eager"
+          fetchpriority="high"
+          class="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_62%] brightness-75"
+        />
+        {/*
+          Camada azul com opacidade. É mais forte (90%) na faixa central, onde fica o texto,
+          e mais leve (80%) nas pontas, para a foto aparecer. A foto também é escurecida
+          (brightness-75) para o letreiro iluminado não competir com o texto branco.
+          Contraste medido na faixa do texto: ~8:1 (WCAG AAA).
+        */}
+        <div
+          class="absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgb(10_74_154/0.8)_0%,rgb(10_74_154/0.9)_18%,rgb(8_59_123/0.9)_88%,rgb(8_59_123/0.8)_100%)]"
+          aria-hidden="true"
+        />
+      </>
+    )
+  }
+
+  <div class="mx-auto max-w-6xl px-4 py-20 text-center sm:py-28">
+    <h1 class="text-3xl font-extrabold tracking-tight text-white [text-shadow:0_2px_12px_rgb(0_0_0/0.35)] sm:text-5xl">
       Receba seus medicamentos em casa com rapidez.
     </h1>
 
-    <p class="mx-auto mt-4 max-w-2xl text-lg text-slate-700">
+    <p class="mx-auto mt-4 max-w-2xl text-lg text-white [text-shadow:0_1px_10px_rgb(0_0_0/0.35)]">
       Faça seu pedido pelo WhatsApp e tenha entrega grátis no {site.addressDetails.neighborhood}.
     </p>
 
@@ -17,14 +55,14 @@ import { site, waLink } from '../config/site';
         href={waLink}
         target="_blank"
         rel="noopener noreferrer"
-        class="w-full rounded-lg bg-pharmacy-red px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-pharmacy-red-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharmacy-blue sm:w-auto"
+        class="w-full rounded-lg bg-pharmacy-red px-6 py-3 text-base font-semibold text-white shadow-lg transition-colors hover:bg-pharmacy-red-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
       >
         Fazer Pedido pelo WhatsApp
       </a>
 
       <a
         href="#servicos"
-        class="w-full rounded-lg bg-pharmacy-blue px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-pharmacy-blue-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pharmacy-red sm:w-auto"
+        class="w-full rounded-lg bg-white px-6 py-3 text-base font-semibold text-pharmacy-blue shadow-lg transition-colors hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white sm:w-auto"
       >
         Nossos Serviços
       </a>
