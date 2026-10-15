@@ -42,7 +42,6 @@ export const site = {
   legal: {
     companyName: 'FARMA MACEIO LTDA',
     cnpj: '68.670.886/0001-14',
-    crf: 'CRF/AL 0000',
     afe: '5.29027-8',
   },
 };
