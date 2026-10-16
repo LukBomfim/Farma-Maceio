@@ -1,0 +1,22 @@
+---
+// src/pages/404.astro
+import Layout from '../layouts/Layout.astro';
+import { site } from '../config/site';
+---
+
+<Layout title={`Redirecionando... | ${site.name}`} noindex>
+  <main class="mx-auto max-w-2xl px-4 py-20 text-center">
+    <p class="text-lg text-slate-700">
+      Redirecionando para a página inicial...
+    </p>
+    <p class="mt-2">
+      <a href="/" class="font-semibold text-pharmacy-blue underline">
+        Clique aqui se não for redirecionado
+      </a>
+    </p>
+  </main>
+
+  <script is:inline>
+    window.location.replace('/');
+  </script>
+</Layout>
