@@ -6,7 +6,7 @@ import { site, waLink } from '../config/site';
 // "fachada" (.jpg, .jpeg, .png ou .webp). Se não existir, o Hero
 // usa apenas o fundo azul da marca.
 const fachadaFiles = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/loja/fachada.{jpg,jpeg,png,webp}',
+  '/src/assets/loja/interior-4.{jpg,jpeg,png,webp}',
   { eager: true },
 );
 const fachada = Object.values(fachadaFiles)[0]?.default;
