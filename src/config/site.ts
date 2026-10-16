@@ -9,6 +9,10 @@ export const site = {
   landline: '558221400693',
   landlineDisplay: '(82) 2140-0693',
 
+  instagram: 'https://www.instagram.com/farmamaceiomcz', // Link do instagram
+  instagramHandle: '@farmamaceiomcz',                    // Handle do instagram, usado em Open Graph
+
+  email: 'farmamaceioal@gmail.com', // Email de contato
 
   address: 'Rua Pastor Eurico Calheiros, 4F - Jacintinho, Maceió - AL',
   addressDetails: {
@@ -53,3 +57,5 @@ export const waLink = `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(
 export const telLink = `tel:+${site.landline}`;
 
 export const mapsLink = `https://maps.app.goo.gl/6egjTtT61FuBhZqL9`;
+
+export const mailLink = `mailto:${site.email}?subject=${encodeURIComponent('Contato pelo site')}`;
