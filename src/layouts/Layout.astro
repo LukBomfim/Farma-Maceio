@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { site } from '../config/site';
+import { site, mapsLink } from '../config/site';
 
 interface Props {
   title?: string;
@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = `${site.name}`,
+  title = `${site.name} | Farmácia no ${site.addressDetails.neighborhood}, Maceió - AL`,
   description = `Farmácia no ${site.addressDetails.neighborhood}, Maceió - AL. Faça seu pedido pelo WhatsApp, com entrega grátis no ${site.addressDetails.neighborhood}, teste de glicemia e aferição de pressão.`,
   image = '/og-image.png',
   noindex = false,
@@ -23,9 +23,18 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Pharmacy',
   name: site.name,
+  legalName: site.legal.companyName,
+  description: `Farmácia no ${site.addressDetails.neighborhood}, Maceió - AL. Faça seu pedido pelo WhatsApp, com entrega grátis no ${site.addressDetails.neighborhood}, teste de glicemia e aferição de pressão.`,
   url: Astro.site?.href,
   image: new URL('/logo.png', Astro.site).href,
+  email: site.email,
   telephone: [`+${site.landline}`, `+${site.whatsapp}`],
+  sameAs: [site.instagram],
+  hasMap: mapsLink,
+  areaServed: {
+    '@type': 'Place',
+    name: `${site.addressDetails.neighborhood}, ${site.addressDetails.city} - ${site.addressDetails.state}`,
+  },
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.addressDetails.street,
