@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://farmamaceio.com.br/sitemap-index.xml
+Sitemap: https://www.farmamaceio.com.br/sitemap-index.xml

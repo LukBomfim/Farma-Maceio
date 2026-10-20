@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://farmamaceio.com.br/',
+  site: 'https://www.farmamaceio.com.br/',
 
   vite: {
     plugins: [tailwindcss()]

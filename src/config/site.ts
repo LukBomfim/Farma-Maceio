@@ -1,6 +1,6 @@
 export const site = {
   name: 'Farma Maceió',
-  url: 'https://farmamaceio.com.br/', // usado em astro.config.mjs, sitemap e Open Graph
+  url: 'https://www.farmamaceio.com.br/', // usado em astro.config.mjs, sitemap e Open Graph
 
 
   whatsapp: '5582987706387', // 55 + DDD + número, só dígitos
